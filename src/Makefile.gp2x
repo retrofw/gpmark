@@ -1,0 +1,65 @@
+# Project: GPmarkGP2X
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+OBJ  = gp2x/bitfonts.o gp2x/blitting.o gp2x/bunny3d.o gp2x/engine3d.o gp2x/env1.o gp2x/generate3d.o gp2x/main.o gp2x/plasma.o gp2x/radialblur.o gp2x/render3d.o gp2x/rotozoomer.o gp2x/sky1.o
+LINKOBJ  = gp2x/bitfonts.o gp2x/blitting.o gp2x/bunny3d.o gp2x/engine3d.o gp2x/env1.o gp2x/generate3d.o gp2x/main.o gp2x/plasma.o gp2x/radialblur.o gp2x/render3d.o gp2x/rotozoomer.o gp2x/sky1.o
+LIBS =  -L"c:/Compilers/GP2X/GP2XSDK/Tools/arm-gp2x-linux/lib" -lSDL  -s  
+INCS =  -I"c:/Compilers/GP2X/GP2XSDK/Tools/arm-gp2x-linux/include"  -I"c:/Compilers/GP2X/GP2XSDK/Tools/include"  -I"c:/Compilers/GP2X/GP2XSDK/Tools/include/SDL" 
+CXXINCS =  -I"c:/Compilers/GP2X/GP2XSDK/Tools/include/c++/3.4.6/backward"  -I"c:/Compilers/GP2X/GP2XSDK/Tools/include/c++/3.4.6"  -I"c:/Compilers/GP2X/GP2XSDK/Tools/arm-gp2x-linux/include"  -I"c:/Compilers/GP2X/GP2XSDK/Tools/include"  -I"c:/Compilers/GP2X/GP2XSDK/Tools/include/SDL" 
+BIN  = GPmarkGP2X.gpe
+CXXFLAGS = $(CXXINCS)   -DGP2X -fexpensive-optimizations -O3
+CFLAGS = $(INCS)   -DGP2X -fexpensive-optimizations -O3
+RM = rm -f
+MKDIR = cygwin-mkdir -p
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before GPmarkGP2X.gpe all-after
+
+all-before:
+	$(MKDIR) "gp2x"
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $@ $(LIBS)
+
+gp2x/bitfonts.o: bitfonts.cpp
+	$(CPP) -c bitfonts.cpp -o gp2x/bitfonts.o $(CXXFLAGS)
+
+gp2x/blitting.o: blitting.cpp
+	$(CPP) -c blitting.cpp -o gp2x/blitting.o $(CXXFLAGS)
+
+gp2x/bunny3d.o: bunny3d.cpp
+	$(CPP) -c bunny3d.cpp -o gp2x/bunny3d.o $(CXXFLAGS)
+
+gp2x/engine3d.o: engine3d.cpp
+	$(CPP) -c engine3d.cpp -o gp2x/engine3d.o $(CXXFLAGS)
+
+gp2x/env1.o: env1.cpp
+	$(CPP) -c env1.cpp -o gp2x/env1.o $(CXXFLAGS)
+
+gp2x/generate3d.o: generate3d.cpp
+	$(CPP) -c generate3d.cpp -o gp2x/generate3d.o $(CXXFLAGS)
+
+gp2x/main.o: main.cpp
+	$(CPP) -c main.cpp -o gp2x/main.o $(CXXFLAGS)
+
+gp2x/plasma.o: plasma.cpp
+	$(CPP) -c plasma.cpp -o gp2x/plasma.o $(CXXFLAGS)
+
+gp2x/radialblur.o: radialblur.cpp
+	$(CPP) -c radialblur.cpp -o gp2x/radialblur.o $(CXXFLAGS)
+
+gp2x/render3d.o: render3d.cpp
+	$(CPP) -c render3d.cpp -o gp2x/render3d.o $(CXXFLAGS)
+
+gp2x/rotozoomer.o: rotozoomer.cpp
+	$(CPP) -c rotozoomer.cpp -o gp2x/rotozoomer.o $(CXXFLAGS)
+
+gp2x/sky1.o: sky1.cpp
+	$(CPP) -c sky1.cpp -o gp2x/sky1.o $(CXXFLAGS)
