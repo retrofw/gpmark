@@ -1,0 +1,67 @@
+# Project: GPmarkGP2X
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = win/bitfonts.o win/blitting.o win/bunny3d.o win/engine3d.o win/env1.o win/generate3d.o win/main.o win/plasma.o win/radialblur.o win/render3d.o win/rotozoomer.o win/sky1.o $(RES)
+LINKOBJ  = win/bitfonts.o win/blitting.o win/bunny3d.o win/engine3d.o win/env1.o win/generate3d.o win/main.o win/plasma.o win/radialblur.o win/render3d.o win/rotozoomer.o win/sky1.o $(RES)
+LIBS =  -L"c:/Compilers/GP2X/GP2XSDK/lib" -lmingw32 -liconv -lgp2x -lSDLmain -lSDL   
+INCS =  -I"c:/Compilers/GP2X/GP2XSDK/include/GP2X"  -I"c:/Compilers/GP2X/GP2XSDK/include/SDL"  -I"c:/Compilers/GP2X/GP2XSDK/include" 
+CXXINCS =  -I"c:/Compilers/GP2X/GP2XSDK/include/GP2X"  -I"c:/Compilers/GP2X/GP2XSDK/include/SDL"  -I"c:/Compilers/GP2X/GP2XSDK/lib/gcc/mingw32/3.4.2/include"  -I"c:/Compilers/GP2X/GP2XSDK/include/c++/3.4.2/backward"  -I"c:/Compilers/GP2X/GP2XSDK/include/c++/3.4.2/mingw32"  -I"c:/Compilers/GP2X/GP2XSDK/include/c++/3.4.2"  -I"c:/Compilers/GP2X/GP2XSDK/include" 
+BIN  = GPmarkGP2X.exe
+CXXFLAGS = $(CXXINCS)   -DWIN32 -fexpensive-optimizations -O3
+CFLAGS = $(INCS)   -DWIN32 -fexpensive-optimizations -O3
+RM = rm -f
+MKDIR = cygwin-mkdir -p
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before GPmarkGP2X.exe all-after
+
+all-before:
+	$(MKDIR) "win"
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $@ $(LIBS)
+
+win/bitfonts.o: bitfonts.cpp
+	$(CPP) -c bitfonts.cpp -o win/bitfonts.o $(CXXFLAGS)
+
+win/blitting.o: blitting.cpp
+	$(CPP) -c blitting.cpp -o win/blitting.o $(CXXFLAGS)
+
+win/bunny3d.o: bunny3d.cpp
+	$(CPP) -c bunny3d.cpp -o win/bunny3d.o $(CXXFLAGS)
+
+win/engine3d.o: engine3d.cpp
+	$(CPP) -c engine3d.cpp -o win/engine3d.o $(CXXFLAGS)
+
+win/env1.o: env1.cpp
+	$(CPP) -c env1.cpp -o win/env1.o $(CXXFLAGS)
+
+win/generate3d.o: generate3d.cpp
+	$(CPP) -c generate3d.cpp -o win/generate3d.o $(CXXFLAGS)
+
+win/main.o: main.cpp
+	$(CPP) -c main.cpp -o win/main.o $(CXXFLAGS)
+
+win/plasma.o: plasma.cpp
+	$(CPP) -c plasma.cpp -o win/plasma.o $(CXXFLAGS)
+
+win/radialblur.o: radialblur.cpp
+	$(CPP) -c radialblur.cpp -o win/radialblur.o $(CXXFLAGS)
+
+win/render3d.o: render3d.cpp
+	$(CPP) -c render3d.cpp -o win/render3d.o $(CXXFLAGS)
+
+win/rotozoomer.o: rotozoomer.cpp
+	$(CPP) -c rotozoomer.cpp -o win/rotozoomer.o $(CXXFLAGS)
+
+win/sky1.o: sky1.cpp
+	$(CPP) -c sky1.cpp -o win/sky1.o $(CXXFLAGS)
