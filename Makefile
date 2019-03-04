@@ -29,6 +29,16 @@ all: all-before gpmark/gpmark.dge all-after
 all-before:
 	$(MKDIR) "src/objs" "gpmark"
 
+ipk: all
+	@rm -rf /tmp/.gpmark-ipk/ && mkdir -p /tmp/.gpmark-ipk/root/home/retrofw/apps/gpmark /tmp/.gpmark-ipk/root/home/retrofw/apps/gmenu2x/sections/applications
+	@cp -r gpmark/gpmark.dge gpmark/gpmark.png gpmark/bunnybig.3do gpmark/draculf.bin /tmp/.gpmark-ipk/root/home/retrofw/apps/gpmark
+	@cp gpmark/gpmark.lnk /tmp/.gpmark-ipk/root/home/retrofw/apps/gmenu2x/sections/applications
+	@sed "s/^Version:.*/Version: $$(date +%Y%m%d)/" gpmark/control > /tmp/.gpmark-ipk/control
+	@tar --owner=0 --group=0 -czvf /tmp/.gpmark-ipk/control.tar.gz -C /tmp/.gpmark-ipk/ control
+	@tar --owner=0 --group=0 -czvf /tmp/.gpmark-ipk/data.tar.gz -C /tmp/.gpmark-ipk/root/ .
+	@echo 2.0 > /tmp/.gpmark-ipk/debian-binary
+	@ar r gpmark/gpmark.ipk /tmp/.gpmark-ipk/control.tar.gz /tmp/.gpmark-ipk/data.tar.gz /tmp/.gpmark-ipk/debian-binary
+
 clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 

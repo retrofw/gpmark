@@ -1,0 +1,4 @@
+title=GPmark
+description=Graphics benchmark
+exec=/home/retrofw/apps/gpmark/gpmark.dge
+clock=600

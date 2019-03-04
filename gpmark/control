@@ -1,0 +1,10 @@
+Package: gpmark
+Version: 
+Description: Graphics benchmark created for testing Gamepark and similarly powered handhelds.
+Section: emus
+Priority: optional
+Maintainer: pingflood
+Architecture: mipsel
+Homepage: https://github.com/pingflood/gpmark
+Depends:
+Source: https://github.com/pingflood/gpmark

@@ -1,3 +1,9 @@
+*.ipk
+*.bmp
+*.gpe
+*.dge
+*.exe
+
 # Prerequisites
 *.d
 
