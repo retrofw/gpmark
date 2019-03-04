@@ -418,6 +418,7 @@ void show_test_results(unsigned short *vram)
         KeyCommands();
         tframe++;
     }
+
 }
 
 
@@ -494,6 +495,8 @@ void RunBench()
 void BackToSystem()
 {
     mmu_unhack();
+
+    if (where_is == RES) system("fbgrab results.png");
 
     #if defined ProjectCaanoo || defined ProjectWiz || defined ProjectGP2X
     	SDL_Quit();

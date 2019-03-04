@@ -27,7 +27,7 @@ MKDIR = mkdir -p
 all: all-before gpmark/gpmark.dge all-after
 
 all-before:
-	$(MKDIR) "src/objs" "gpmark"
+	@$(MKDIR) "src/objs" "gpmark"
 
 ipk: all
 	@rm -rf /tmp/.gpmark-ipk/ && mkdir -p /tmp/.gpmark-ipk/root/home/retrofw/apps/gpmark /tmp/.gpmark-ipk/root/home/retrofw/apps/gmenu2x/sections/applications
