@@ -1,3 +1,5 @@
+*.elf
+*.opk
 *.ipk
 *.bmp
 *.gpe

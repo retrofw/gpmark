@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=GPmark
+Comment=Graphics benchmark
+Exec=gpmark.dge
+Icon=gpmark
+Categories=applications;

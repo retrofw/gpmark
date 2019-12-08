@@ -1,8 +1,13 @@
-# Project: GPmarkGP2X
-# Makefile created by Dev-C++ 4.9.9.2; RetroGame by pingflood
+#
+# GPMark for the RetroFW
+#
+# by pingflood; 2019
+#
 
-CHAINPREFIX := /opt/mipsel-linux-uclibc
-CROSS_COMPILE := $(CHAINPREFIX)/usr/bin/mipsel-linux-
+TARGET = gpmark/gpmark.dge
+
+# Project: GPmarkGP2X
+# Makefile created by Dev-C++ 4.9.9.2
 
 CC = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
@@ -16,33 +21,19 @@ LIBS =  `$(SDL_CONFIG) --libs` -s
 LINKOBJ  = $(OBJ)
 INCS =  -I$(SYSROOT)/usr/include  -I$(SYSROOT)/usr/lib  -I$(SYSROOT)/lib -I./src
 CXXINCS =  $(INCS)
-BIN  = gpmark/gpmark.dge
-CXXFLAGS = $(CXXINCS)   -DGP2X -fexpensive-optimizations -O3
-CFLAGS = $(INCS)   -DGP2X -fexpensive-optimizations -O3
+CXXFLAGS = $(CXXINCS) -DGP2X -fexpensive-optimizations -O3
+CFLAGS = $(INCS) -DGP2X -fexpensive-optimizations -O3
 RM = rm -f
 MKDIR = mkdir -p
 
 .PHONY: all all-before all-after clean clean-custom
 
-all: all-before gpmark/gpmark.dge all-after
+all: all-before $(TARGET) all-after
 
 all-before:
 	@$(MKDIR) "src/objs" "gpmark"
 
-ipk: all
-	@rm -rf /tmp/.gpmark-ipk/ && mkdir -p /tmp/.gpmark-ipk/root/home/retrofw/apps/gpmark /tmp/.gpmark-ipk/root/home/retrofw/apps/gmenu2x/sections/applications
-	@cp -r gpmark/gpmark.dge gpmark/gpmark.png gpmark/bunnybig.3do gpmark/draculf.bin /tmp/.gpmark-ipk/root/home/retrofw/apps/gpmark
-	@cp gpmark/gpmark.lnk /tmp/.gpmark-ipk/root/home/retrofw/apps/gmenu2x/sections/applications
-	@sed "s/^Version:.*/Version: $$(date +%Y%m%d)/" gpmark/control > /tmp/.gpmark-ipk/control
-	@tar --owner=0 --group=0 -czvf /tmp/.gpmark-ipk/control.tar.gz -C /tmp/.gpmark-ipk/ control
-	@tar --owner=0 --group=0 -czvf /tmp/.gpmark-ipk/data.tar.gz -C /tmp/.gpmark-ipk/root/ .
-	@echo 2.0 > /tmp/.gpmark-ipk/debian-binary
-	@ar r gpmark/gpmark.ipk /tmp/.gpmark-ipk/control.tar.gz /tmp/.gpmark-ipk/data.tar.gz /tmp/.gpmark-ipk/debian-binary
-
-clean: clean-custom
-	${RM} $(OBJ) $(BIN) gpmark/gpmark.ipk
-
-$(BIN): $(OBJ)
+$(TARGET): $(OBJ)
 	$(CXX) $(LINKOBJ) -o $@ $(LIBS)
 
 src/objs/bitfonts.o: src/bitfonts.cpp
@@ -80,3 +71,31 @@ src/objs/rotozoomer.o: src/rotozoomer.cpp
 
 src/objs/sky1.o: src/sky1.cpp
 	$(CXX) -c src/sky1.cpp -o src/objs/sky1.o $(CXXFLAGS)
+
+ipk: all
+	@rm -rf /tmp/.gpmark-ipk/ && mkdir -p /tmp/.gpmark-ipk/root/home/retrofw/apps/gpmark /tmp/.gpmark-ipk/root/home/retrofw/apps/gmenu2x/sections/applications
+	@cp -r \
+	$(TARGET) \
+	gpmark/gpmark.png \
+	gpmark/bunnybig.3do \
+	gpmark/draculf.bin \
+	/tmp/.gpmark-ipk/root/home/retrofw/apps/gpmark
+	@cp gpmark/gpmark.lnk /tmp/.gpmark-ipk/root/home/retrofw/apps/gmenu2x/sections/applications
+	@sed "s/^Version:.*/Version: $$(date +%Y%m%d)/" gpmark/control > /tmp/.gpmark-ipk/control
+	@tar --owner=0 --group=0 -czvf /tmp/.gpmark-ipk/control.tar.gz -C /tmp/.gpmark-ipk/ control
+	@tar --owner=0 --group=0 -czvf /tmp/.gpmark-ipk/data.tar.gz -C /tmp/.gpmark-ipk/root/ .
+	@echo 2.0 > /tmp/.gpmark-ipk/debian-binary
+	@ar r gpmark/gpmark.ipk /tmp/.gpmark-ipk/control.tar.gz /tmp/.gpmark-ipk/data.tar.gz /tmp/.gpmark-ipk/debian-binary
+
+opk: all
+	@mksquashfs \
+	gpmark/default.retrofw.desktop \
+	gpmark/gpmark.dge \
+	gpmark/gpmark.png \
+	gpmark/bunnybig.3do \
+	gpmark/draculf.bin \
+	gpmark/gpmark.opk \
+	-all-root -noappend -no-exports -no-xattrs
+
+clean: clean-custom
+	${RM} $(OBJ) $(TARGET) gpmark/gpmark.ipk
