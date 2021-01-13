@@ -402,6 +402,10 @@ float find_max_result()
 
 void show_test_results(unsigned short *vram)
 {
+    screen = SDL_SetVideoMode (ScreenWidth, ScreenHeight, 16, SDL_HWSURFACE | SDL_TRIPLEBUF);
+    SDL_Surface *res = SDL_ConvertSurface(screen, screen->format, screen->flags);
+    vram = (unsigned short*)res->pixels;
+
     where_is = RES;
 
     int tframe = 0;
@@ -412,6 +416,7 @@ void show_test_results(unsigned short *vram)
     {
         SquaresScreen(tframe, vram);
         RenderTestResults(tframe, fmax, vram);
+        SDL_BlitSurface(res, NULL, screen, NULL);
         SDL_Flip(screen);
         speeddown(20);
         KeyCommands();
