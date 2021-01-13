@@ -492,6 +492,10 @@ void BackToSystem()
 {
     mmu_unhack();
 
+    if (where_is == RES) {
+        system("fbgrab $HOME/gpmark.png");
+    }
+
     #if defined ProjectCaanoo || defined ProjectWiz || defined ProjectGP2X
     	SDL_Quit();
     	chdir("/usr/gp2x");
