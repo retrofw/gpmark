@@ -16,9 +16,9 @@ STRIP = $(CROSS_COMPILE)strip
 SYSROOT     := $(shell $(CC) --print-sysroot)
 SDL_CONFIG = $(SYSROOT)/usr/bin/sdl-config
 
-OBJ  = src/objs/bitfonts.o src/objs/blitting.o src/objs/bunny3d.o src/objs/engine3d.o src/objs/env1.o src/objs/generate3d.o src/objs/main.o src/objs/plasma.o src/objs/radialblur.o src/objs/render3d.o src/objs/rotozoomer.o src/objs/sky1.o
-LIBS =  `$(SDL_CONFIG) --libs` -s
+OBJ  = src/objs/menu.o src/objs/bitfonts.o src/objs/blitting.o src/objs/bunny3d.o src/objs/engine3d.o src/objs/env1.o src/objs/generate3d.o src/objs/main.o src/objs/plasma.o src/objs/radialblur.o src/objs/render3d.o src/objs/rotozoomer.o src/objs/sky1.o
 LINKOBJ  = $(OBJ)
+LIBS =  `$(SDL_CONFIG) --libs` -s -lSDL_ttf
 INCS =  -I$(SYSROOT)/usr/include  -I$(SYSROOT)/usr/lib  -I$(SYSROOT)/lib -I./src
 CXXINCS =  $(INCS)
 CXXFLAGS = $(CXXINCS) -DGP2X -fexpensive-optimizations -O3
@@ -35,6 +35,9 @@ all-before:
 
 $(TARGET): $(OBJ)
 	$(CXX) $(LINKOBJ) -o $@ $(LIBS)
+
+src/objs/menu.o: src/menu.c
+	$(CXX) -c src/menu.c -o src/objs/menu.o $(CXXFLAGS)
 
 src/objs/bitfonts.o: src/bitfonts.cpp
 	$(CXX) -c src/bitfonts.cpp -o src/objs/bitfonts.o $(CXXFLAGS)

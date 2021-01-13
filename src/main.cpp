@@ -6,6 +6,7 @@
 
 #include "main.h"
 #include "bitfonts.h"
+#include "menu.h"
 
 #include "blitting.h"
 #include "plasma.h"
@@ -13,6 +14,10 @@
 #include "radialblur.h"
 #include "bunny3d.h"
 #include "render3d.h"
+
+#ifndef SDL_TRIPLEBUF
+#define SDL_TRIPLEBUF SDL_DOUBLEBUF
+#endif
 
 #if defined ProjectCaanoo || defined ProjectWiz || defined ProjectGP2X
     #include <unistd.h>
@@ -176,17 +181,14 @@ void mmu_unhack()
 
 void Init()
 {
-    SDL_Init (SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);
-	SDL_ShowCursor(SDL_DISABLE);
-	screen = SDL_SetVideoMode (ScreenWidth, ScreenHeight, 16, SDL_SWSURFACE);
-
-    if (SDL_NumJoysticks() > 0)
-        joy = SDL_JoystickOpen(0);
-
     mmu_hack();
-
     InitFonts();
     InitEffects();
+
+    SDL_Init (SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);
+	SDL_ShowCursor(SDL_DISABLE);
+    // if (SDL_NumJoysticks() > 0) joy = SDL_JoystickOpen(0);
+    screen = SDL_SetVideoMode (ScreenWidth, ScreenHeight, 16, SDL_SWSURFACE);
 }
 
 void KeyCommands()
@@ -506,6 +508,8 @@ void BackToSystem()
 int main (int argc, char *argv[])
 {
     Init();
+
+    menu();
 
     InitBench();
     RunBench();
